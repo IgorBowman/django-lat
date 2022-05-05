@@ -15,8 +15,8 @@ class Country(models.Model):
     description = models.TextField(verbose_name='Описание')
     capital = models.CharField(max_length=100, verbose_name='Столица')
     photos = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фото')
-    lang = models.ForeignKey('Religion', on_delete=models.PROTECT, null=True, verbose_name='Язык')
-    religion = models.ForeignKey('Religion', on_delete=models.PROTECT, null=True, verbose_name='Религия')
+    lang = models.ForeignKey('Religion', on_delete=models.PROTECT, null=True, verbose_name='Язык', related_name='country_language')
+    religion = models.ForeignKey('Religion', on_delete=models.PROTECT, null=True, verbose_name='Религия', related_name='country_religion')
     politic = models.ForeignKey('Politition', on_delete=models.PROTECT, null=True, verbose_name='Политическая система')
     reg = models.ForeignKey('Region', on_delete=models.PROTECT, null=True, verbose_name='Регион')
 
