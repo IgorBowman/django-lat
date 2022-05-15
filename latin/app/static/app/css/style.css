@@ -1,0 +1,19 @@
+}
+.sidebar {
+width:200px;
+height:300px;
+border:1px solid black;
+float:left;
+}
+
+.content {
+width:370px;
+height:300px;
+margin-left:230px;
+}
+
+.footer {
+width:600px;
+height:130px;
+border:1px solid black;
+}
