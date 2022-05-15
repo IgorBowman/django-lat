@@ -1,0 +1,33 @@
+{% extends 'app/base.html'%}
+
+
+{% block title %}
+<title>Главная страница</title>
+{% endblock title %}
+
+{% block content %}
+<!--    <div class="myitem">-->
+<!--        {% for region in regions %}-->
+<!--                <a href="/app/{{ region.pk }}/">{{ region.name }}</a>-->
+<!--        {% endfor %}-->
+<!--    </div>-->
+{% for post in posts %}
+    <div>
+        <h2>{{ post.name }}</h2>
+            {% if post.photos %}
+			   <p><img width='500px' src="{{ post.photos.url }}"></p></figure>
+		    {% endif %}
+        {% load humanize %}
+        <p>Насаление: {{ post.population|intcomma }} человек</p>
+
+        <p>Столица: {{ post.capital }}</p>
+        <p>Язык: {{ post.lang }}</p>
+        <p>Религия: {{ post.religion }}</p>
+        <p>Политическая система: {{ post.politic }}</p>
+        <p>Описание: {{ post.description }}</p>
+        <p class="outline-url"><a href="/app/{{ post.reg.pk }}/">{{ post.reg.name }}</a></p>
+    <!--Потом затестить с кучей фоток-->
+    <!--    <p>{{ post.images}}</p>-->
+    </div>
+{% endfor %}
+{% endblock content %}

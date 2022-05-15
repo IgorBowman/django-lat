@@ -23,8 +23,10 @@ class Country(models.Model):
     def __str__(self):
         return self.name
 
+    # def get_absolute_url(self):
+    #     return reverse('country', kwargs={'country_slug': self.slug})
     def get_absolute_url(self):
-        return reverse('country', kwargs={'country_slug': self.slug})
+        return reverse('country', kwargs={'pk': self.pk})
 
     class Meta:
         verbose_name_plural = 'Countries'
@@ -38,8 +40,10 @@ class Region(models.Model):
     def __str__(self):
         return self.name
 
+    # def get_absolute_url(self):
+    #     return reverse('region', kwargs={'region_slug': self.slug})
     def get_absolute_url(self):
-        return reverse('region', kwargs={'cregion_slug': self.slug})
+        return reverse('region', kwargs={'pk': self.pk})
 
 
 class Politition(models.Model):
