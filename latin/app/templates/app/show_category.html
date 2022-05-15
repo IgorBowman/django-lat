@@ -4,23 +4,22 @@
     <title>{{ current_reg.id }}</title>
 {% endblock title %}
 
-
 {% block content %}
 
         <div class="myitem">
  <!--   тут траблы с отображением         -->
 <!--            {% for region in regions %}-->
-<!--            <a href="/app/{{ region.pk }}/">{{ region.name}}</a>-->
+<!--            <a href="">{{ region.name}}</a>-->
 <!--             {% endfor %}-->
          {% for post in posts %}
-            <p class=""><a href="/app/{{ post.reg.pk }}/">{{ post.reg.name }}</a></p>
+            <p class=""><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
         </div>
 
 
         <div>
             <h2>{{ post.name }}</h2>
             {% if post.photos %}
-			   <p><img width='500px' src="{{ post.photos.url }}"></p></figure>
+			   <p><img width='500px' src="{{ post.photos.url }}"></p>
 		    {% endif %}
             <p>Насаление: {{ post.population }} человек</p>
             <p>Столица: {{ post.capital }}</p>
@@ -29,7 +28,7 @@
             <p>Политическая система: {{ post.politic }}</p>
             <p>Описание: {{ post.description }}</p>
 
-                    <p class="outline-url"><a href="/app/{{ post.reg.pk }}/">{{ post.reg.name }}</a></p>
+                    <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
 <!--            <p class="outline-url "><a href="/app/{{ post.reg.pk }}/">{{ post.reg.name }}</a></p>-->
         </div>
         {% endfor %}
