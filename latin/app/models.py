@@ -68,8 +68,9 @@ class CountryShots(models.Model):
                                      on_delete=models.CASCADE)
     image = models.ImageField('Изображение', upload_to='country_shots/%Y/%m/%d/')
 
+    # Вылетает если заходить в Countries
     def __str__(self):
-        return self.country_name
+        return f"{self.country_name}_{self.id}"
 
     class Meta:
         verbose_name_plural = 'Country shots'
