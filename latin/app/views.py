@@ -1,12 +1,16 @@
 from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import CreateView
 
 from .models import *
+from .forms import CountryForm
 
 
 def index(request):
     posts = Country.objects.all()
     regions = Region.objects.all()
     context = {
+        'title': 'Главная страница',
         'posts': posts,
         'regions': regions,
     }
@@ -23,3 +27,14 @@ def show_category(request, pk):
         'current_reg': current_reg,
     }
     return render(request, 'app/show_category.html', context)
+
+
+class CountryCreateView(CreateView):
+    template_name = 'app/create.html'
+    form_class = CountryForm
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regions'] = Region.objects.all()
+        return context
