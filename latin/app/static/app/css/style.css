@@ -1,8 +1,20 @@
+body {
+    width: 100%;
+    height: 10vh;
+    background-image: url('../css/1675883.jpg');
+    background-position: center;
+    background-size: cover;
+    float: left;
+
+}
+
+
 .myitem {
     border: 2px solid #337AB7;
     background: #BFE2FF;
     padding: 10px 20px;
     margin: 10px 0;
+
 }
 
 .outline-url {
@@ -11,38 +23,19 @@
     padding: 5px;
     padding-right: 25px;
     border: solid 1px orange;
-    float: justify;
+
    }
-
-
 
 .table-content {
 	width: 100%;
 	min-height: 100%;
 	height: 100%;
-}
-
-.submitt {
-
-}
+	text-shadow: 1px 1px 1px #000;
+	}
 
 
-input[type=text] {
-    padding:5px;
-    border:2px solid #ccc;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
-}
-
-input[type=text]:focus {
-    border-color:#333;
-}
-
-input[type=submit] {
-    padding:5px 15px;
-    background:#ccc;
-    border:0 none;
-    cursor:pointer;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+.h1 {
+  color: black;
+  -webkit-text-stroke: black;
+  -webkit-text-fill-color: white;
 }

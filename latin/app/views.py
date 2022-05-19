@@ -9,10 +9,12 @@ from .forms import CountryForm
 def index(request):
     posts = Country.objects.all()
     regions = Region.objects.all()
+
     context = {
         'title': 'Главная страница',
         'posts': posts,
         'regions': regions,
+
     }
     return render(request, 'app/index.html', context)
 
