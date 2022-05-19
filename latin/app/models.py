@@ -20,6 +20,9 @@ class Country(models.Model):
     images = models.ForeignKey('CountryShots', on_delete=models.CASCADE, verbose_name='Изображения',
                                null=True, blank=True)
 
+
+
+
     def __str__(self):
         return self.name
 
@@ -41,9 +44,9 @@ class Region(models.Model):
         return self.name
 
     # def get_absolute_url(self):
-    #     return reverse('region', kwargs={'region_slug': self.slug})
+    #     return reverse('show_cat', kwargs={'region_slug': self.slug})
     def get_absolute_url(self):
-        return reverse('region', kwargs={'pk': self.pk})
+        return reverse('show_cat', kwargs={'pk': self.pk})
 
 
 class Politition(models.Model):
