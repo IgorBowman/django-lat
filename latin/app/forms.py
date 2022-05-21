@@ -9,5 +9,5 @@ class CountryForm(ModelForm):
 
     class Meta:
         model = Country
-        fields = ['name', 'slug', 'population', 'description', 'capital',
-                  'photos', 'lang', 'religion', 'politic', 'reg']
+        fields = ("name", "slug", "population", "description", "capital",
+                  "photos", "lang", "religion", "politic", "reg",)

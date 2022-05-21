@@ -21,15 +21,18 @@ class Country(models.Model):
                                null=True, blank=True)
 
     def correct_view_population(self):
-        result = int(self.population) / 1000000
+        if len(str(self.population)) > 4:
+            result = int(self.population) / 1000000
+            return result
 
-        return result
+        return self.population
 
     def __str__(self):
         return self.name
 
     # def get_absolute_url(self):
     #     return reverse('country', kwargs={'country_slug': self.slug})
+
     def get_absolute_url(self):
         return reverse('country', kwargs={'pk': self.pk})
 

@@ -32,11 +32,12 @@ def show_category(request, pk):
 
 
 class CountryCreateView(CreateView):
-    template_name = 'app/create.html'
     form_class = CountryForm
+    template_name = 'app/create.html'
     success_url = reverse_lazy('home')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['regions'] = Region.objects.all()
         return context
+

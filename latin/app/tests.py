@@ -1,6 +1,10 @@
 from django.test import TestCase
+from django.http import HttpRequest
+from django.contrib.auth.models import User
+import tempfile
 
 from .models import Country
+from .forms import CountryForm
 
 
 class PriceOutputTestCase(TestCase):
@@ -26,3 +30,32 @@ class PriceOutputTestCase(TestCase):
 
     def test_two_negative(self):
         self.assertNotEqual(55.99, self.second_country_negative.correct_view_population())
+
+
+class TestCountryForm(TestCase):
+
+    # def test_empty_form(self):
+    #     form = CountryForm()
+    #     self.assertInHTML('<input type="text" name="name" maxlength="100" required id="id_name">', str(form))
+    #     self.assertInHTML('<input type="text" name="capital" maxlength="100" required id="id_capital">', str(form))
+    #
+    #     self.assertIn("slug", form.fields)
+    #     self.assertIn("population", form.fields)
+
+    def test_create_valid_form(self):
+        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+
+        form = CountryForm(data={
+            'name': 'Russia',
+            'slug': 'russia',
+            'population': 1441000000.0,
+            'capital': 'Moscow',
+            'photos': image,
+            'lang': 'russian',
+            'religion': 'christians',
+            'politic': 'authorian',
+            'reg': 'East Europe',
+
+        })
+        self.assertTrue(form.is_valid())
+        # self.assertFalse(form.is_valid())
