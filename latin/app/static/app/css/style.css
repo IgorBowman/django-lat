@@ -8,7 +8,6 @@ body {
 
 }
 
-
 .myitem {
     border: 2px solid #337AB7;
     background: #BFE2FF;
@@ -24,7 +23,7 @@ body {
     padding-right: 25px;
     border: solid 1px orange;
 
-   }
+}
 
 .table-content {
 	width: 100%;
@@ -33,9 +32,66 @@ body {
 	text-shadow: 1px 1px 1px #000;
 	}
 
-
 .h1 {
   color: black;
   -webkit-text-stroke: black;
   -webkit-text-fill-color: white;
+}
+
+
+#footer {
+	box-sizing: border-box;
+
+	background: #3F4137;
+	padding: 5px;
+	color: #aaa;
+	font-size: 14px;
+	font-family: Verdana, Geneva, Arial, Helvetica;
+	text-align: left;
+	overflow: hidden;
+}
+#footer a {
+	text-decoration: underline;
+	color: #aaa;
+}
+#### bokovaya hujnada
+
+.left-chapters {
+
+	margin: 0;
+	background: #eee;
+	border-right: 1px solid #ccc;
+	min-height: 100%;
+}
+.left-chapters ul {
+	width: 230px;
+	min-height: 100%;
+	margin: 0;
+	padding: 20px 10px 10px 20px;
+	list-style: none;
+	font-size: 20px;
+}
+.left-chapters ul li {
+	margin: 30px 0 0 0;
+	color: #999;
+}
+.left-chapters ul li.selected {color: #0059b2; }
+.left-chapters ul li a {
+	color: #444;
+	text-decoration: none;
+}
+.left-chapters ul li a:hover { color: #CC0000; }
+.left-chapters ul li.share {margin: 60px 0 0 0;}
+.left-chapters ul li.share p {margin: 30px 0 30px 0;}
+.left-chapters ul li.share a {
+	display: inline-block;
+	width: 40px;
+	height: 40px;
+	margin: 0 20px 0 0;
+}
+
+.content {
+	padding: 40px 20px 20px 40px;
+	width: 100%;
+	box-sizing: border-box;
 }
