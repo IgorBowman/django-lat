@@ -15,8 +15,9 @@
 <body>
 {% include 'app/navbar.html' %}
 {% block mainmenu %}
-<!--    <div class="table-content">-->
-        <div class="left-chapters">
+<table>
+    <td valign="top" class="left-chapters">
+        <div class="">
         {% for region in regions %}
 
                     <li><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></li>
@@ -24,11 +25,33 @@
         {% endfor %}
     </div>
 
-{% endblock mainmenu %}
+{% endblock mainmenu %}</td>
 <nav>
+
+    <tr class="table-content">
+        <td valign="top" class="content">
+
 
 {% block content %}
 {% endblock content %}
+
+           </td>
+
+    </tr>
+
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
 
 </nav>
 <!--footer-->
