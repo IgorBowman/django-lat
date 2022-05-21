@@ -6,30 +6,24 @@
 {% endblock title %}
 
 {% block content %}
+    {% for post in posts %}
 
-{% for post in posts %}
-
-    <div class="">
-        <h2 class="h1">{{ post.name }}</h2>
-
-
-            {% if post.photos %}
-			   <p><img width='500px' src="{{ post.photos.url }}"></p>
-		    {% endif %}
-        {% load humanize %}
-        <p>Насаление: {{ post.population }} человек</p>
-
-        <p>Столица: {{ post.capital }}</p>
-        <p>Язык: {{ post.lang }}</p>
-        <p>Религия: {{ post.religion }}</p>
-        <p>Политическая система: {{ post.politic }}</p>
-        <p class="">Описание: {{ post.description }}</p>
-        <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
-    <!--Потом затестить с кучей фоток-->
-<!--        {{ post.images }}-->
-        <p><img width='500px' src="{{ post.images.url }}"></p>
-
-
-    </div>
-{% endfor %}
+        <div class="">
+            <h2 class="h1">{{ post.name }}</h2>
+                {% if post.photos %}
+                   <p><img width='500px' src="{{ post.photos.url }}"></p>
+                {% endif %}
+            {% load humanize %}
+            <p>Насаление: {{ post.correct_view_population }} млн. человек</p>
+            <p>Столица: {{ post.capital }}</p>
+            <p>Язык: {{ post.lang }}</p>
+            <p>Религия: {{ post.religion }}</p>
+            <p>Политическая система: {{ post.politic }}</p>
+            <p class="">Описание: {{ post.description }}</p>
+            <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
+        <!--Потом затестить с кучей фоток-->
+    <!--        {{ post.images }}-->
+            <p><img width='500px' src="{{ post.images.url }}"></p>
+        </div>
+    {% endfor %}
 {% endblock content %}

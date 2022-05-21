@@ -20,8 +20,10 @@ class Country(models.Model):
     images = models.ForeignKey('CountryShots', on_delete=models.CASCADE, verbose_name='Изображения',
                                null=True, blank=True)
 
+    def correct_view_population(self):
+        result = int(self.population) / 1000000
 
-
+        return result
 
     def __str__(self):
         return self.name
