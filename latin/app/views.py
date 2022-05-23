@@ -3,15 +3,16 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView
 
-from django.views.generic.base import View ## delete
+from django.views.generic.base import View  ## delete
 
 from .models import *
 from .forms import CountryForm
 
 
 def index(request):
+    """Главная страница"""
     posts = Country.objects.all()
     regions = Region.objects.all()
 
@@ -25,6 +26,7 @@ def index(request):
 
 
 class CountryRegionView(TemplateView):
+    """Сортировка по региону"""
     template_name = 'app/show_category.html'
 
     def get_context_data(self, **kwargs):
@@ -37,6 +39,7 @@ class CountryRegionView(TemplateView):
 
 
 # class CountryCreateView(CreateView):
+# """ Класс для создания новой записи"""
 #     form_class = CountryForm
 #     template_name = 'app/create.html'
 #     success_url = reverse_lazy('home')
@@ -47,6 +50,7 @@ class CountryRegionView(TemplateView):
 #         return context
 
 def add_and_save(request):
+    """ Функция для создания новой записи"""
     if request.method == 'POST':
         cntry = CountryForm(request.POST)
         if cntry.is_valid():
@@ -65,29 +69,33 @@ def add_and_save(request):
 
 
 # class CountryDetailView(DetailView):
+# """ Не полностью рабочий класс для просмотра записи"""
 #     model = Country
-    ##templates_name = 'app/country_detail.html'
-    ##queryset = Country.objects.filterl(id__gt=pk)
-
-    #context_object_name = 'country'
 
 #
 #     def get_context_data(self, **kwargs):
 #         context = super().get_context_data(**kwargs)
 #         #context['regions'] = Region.objects.all()  # 'reg'
-#         context['regs'] = Region.objects.all()  # 'reg'
 #         return context
 
-###fajfajfhaf
-        # def get_object(self, queryset=None):
-        #     slug = self.kwargs.get(self.slug_url_kwarg, None)
-        #     try:
-        #         return queryset.get(slug=slug)
-        #     except PostDoesNotExist:
-        #         raise Http404('Ох, нет объекта;)')
 
 class CountryDetailView(View):
+    """ Класс для просмотра записи"""
 
     def get(self, request, pk):
         country = Country.objects.get(id=pk)
         return render(request, "app/country_detail.html", {'country': country})
+
+
+class CountryEditView(UpdateView):
+    model = Country
+    form_class = CountryForm
+
+    def get_success_url(self):
+        country_id = self.kwargs['pk']
+        return reverse_lazy('detail', kwargs={'pk': country_id})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['regions'] = Region.objects.all()
+        return context

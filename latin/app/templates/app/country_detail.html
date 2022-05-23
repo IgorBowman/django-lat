@@ -25,5 +25,9 @@
                 {{ i }}
                 {{ i.country_name }}
             {% endfor %}
+
+            <form action="{% url 'edit' country.pk %}" method="get">
+                     <button type="submit" class="button-edit">Редактировать</button>
+            </form>
         </div>
 {% endblock %}

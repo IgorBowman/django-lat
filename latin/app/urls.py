@@ -1,6 +1,6 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.urls import path, re_path
+from django.urls import path
 
 from .views import *
 
@@ -11,6 +11,7 @@ urlpatterns = [
     path('', index, name='home'),
     #path('detail/<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
+    path('edit/<int:pk>/', CountryEditView.as_view(), name='edit'),
 ]
 
 if settings.DEBUG:
