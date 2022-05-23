@@ -5,10 +5,12 @@ from django.urls import path, re_path
 from .views import *
 
 urlpatterns = [
-    path('app/<int:pk>/', show_category, name='show_cat'),
-    # path('app/<int:pk>/', show_category2, name='show_cat'),
-    path('add/', CountryCreateView.as_view(), name='create'),
+    path('app/<int:pk>/', CountryRegionView.as_view(), name='show_cat'),
+    #path('add/', CountryCreateView.as_view(), name='create'), # does not work
+    path('add/', add_and_save, name='create'), # does not work
     path('', index, name='home'),
+    #path('detail/<int:pk>/', CountryDetailView.as_view(), name='detail'),
+    path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
 ]
 
 if settings.DEBUG:

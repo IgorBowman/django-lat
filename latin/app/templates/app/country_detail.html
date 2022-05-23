@@ -1,0 +1,29 @@
+{% extends "app/base.html" %}
+
+{% block title %}<title>{{ current_reg.id }}</title>{% endblock %}
+
+{% block content %}
+
+    <p class="myitem">Рубрика: {{ country.reg.name }}</p>
+        <div class="">
+            <h2 class="h1">{{ country.name }}</h2>
+                {% if country.photos %}
+                   <p><img width='500px' src="{{ country.photos.url }}"></p>
+                {% endif %}
+            <p>Насаление: {{ country.correct_view_population }} млн. человек</p>
+            <p>Столица: {{ country.capital }}</p>
+            <p>Язык: {{ country.lang }}</p>
+            <p>Религия: {{ country.religion }}</p>
+            <p>Политическая система: {{ country.politic }}</p>
+            <p class="">Описание: {{ country.description }}</p>
+            <p class="outline-url"><a  href="{% url 'show_cat' country.reg.pk %}">Описание: {{ country.reg.name }}</a></p>
+
+        <!--Как вывести фото?? -->
+    <!--        {{ post.images }}-->
+            {% for i in country.images__country_name.set_all %}
+                <p><img src="{{ i.country.image }}"></p>
+                {{ i }}
+                {{ i.country_name }}
+            {% endfor %}
+        </div>
+{% endblock %}

@@ -9,7 +9,8 @@
     {% for post in posts %}
 
         <div class="">
-            <h2 class="h1">{{ post.name }}</h2>
+            <h2 class="h1"><a href="{{ post.id }}">{{ post.name }}</a></h2>
+
                 {% if post.photos %}
                    <p><img width='500px' src="{{ post.photos.url }}"></p>
                 {% endif %}
@@ -22,7 +23,9 @@
             <p class="">Описание: {{ post.description }}</p>
             <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
         <!--Потом затестить с кучей фоток-->
+
     <!--        {{ post.images }}-->
+
             <p><img width='500px' src="{{ post.images.url }}"></p>
         </div>
     {% endfor %}
