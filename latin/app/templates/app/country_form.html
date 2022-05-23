@@ -1,0 +1,15 @@
+{% extends "app/base.html" %}
+
+{% block title %}
+    <title>Изменить</title>
+{% endblock title %}
+
+{% block content %}
+    <form method="post">
+          <div class="form-group">
+              {% csrf_token %}
+            <label>{{ form.as_p }}</label>
+          </div>
+         <button type="submit" class="btn btn-primary">Сохранить</button>
+    </form>
+{% endblock content %}

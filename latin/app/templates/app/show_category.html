@@ -12,12 +12,11 @@
 <!--            <a href="">{{ region.name}}</a>-->
 <!--             {% endfor %}-->
          {% for post in posts %}
-            <p class=""><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
+            <p class="">{{ post.reg.name }}</p>
         </div>
 
-
-        <div>
-            <h2>{{ post.name }}</h2>
+        <div class="">
+            <h2 class="h1"><a href="{% url 'detail' post.pk %}">{{ post.name }}</a></h2>
             {% if post.photos %}
 			   <p><img width='500px' src="{{ post.photos.url }}"></p>
 		    {% endif %}
