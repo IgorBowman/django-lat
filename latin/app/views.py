@@ -20,7 +20,6 @@ def index(request):
         'title': 'Главная страница',
         'posts': posts,
         'regions': regions,
-
     }
     return render(request, 'app/index.html', context)
 
@@ -51,6 +50,7 @@ class CountryRegionView(TemplateView):
 
 def add_and_save(request):
     """ Функция для создания новой записи"""
+
     if request.method == 'POST':
         cntry = CountryForm(request.POST)
         if cntry.is_valid():
@@ -88,6 +88,8 @@ class CountryDetailView(View):
 
 
 class CountryEditView(UpdateView):
+    """ Класс редактирования записи"""
+
     model = Country
     form_class = CountryForm
 
@@ -102,7 +104,8 @@ class CountryEditView(UpdateView):
 
 
 class CountryDeleteView(DeleteView):
-    # Удаление записи
+    """ Класс удаления записи"""
+
     model = Country
     success_url = reverse_lazy('home')
 
