@@ -20,7 +20,7 @@
         <div class="">
         {% for region in regions %}
 
-                    <li><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></li>
+                    <ul><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></ul>
 
         {% endfor %}
     </div>

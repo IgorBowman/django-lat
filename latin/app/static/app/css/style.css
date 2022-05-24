@@ -65,9 +65,9 @@ body {
 }
 .left-chapters ul {
 	width: 230px;
-	min-height: 100%;
+	min-height: 50%;
 	margin: 0;
-	padding: 20px 10px 10px 20px;
+	padding: 10px 10px 10px 10px;
 	list-style: none;
 	font-size: 20px;
 }
@@ -75,6 +75,7 @@ body {
 	margin: 30px 0 0 0;
 	color: #999;
 }
+
 .left-chapters ul li.selected {color: #0059b2; }
 .left-chapters ul li a {
 	color: #444;
@@ -100,4 +101,15 @@ body {
     background-color: white;
     color: black;
     border: 2px solid #4CAF50;
+}
+
+.button-edit {
+    background-color: white;
+    color: black;
+    border: 2px solid #4CAF50;
+}
+
+.delete-confirm {
+  color: #FF0000;
+
 }

@@ -3,6 +3,8 @@ from django.http import HttpRequest
 from django.contrib.auth.models import User
 import tempfile
 
+from django.urls import reverse
+
 from .models import Country
 from .forms import CountryForm
 
@@ -34,13 +36,13 @@ class PriceOutputTestCase(TestCase):
 
 class TestCountryForm(TestCase):
 
-    # def test_empty_form(self):
-    #     form = CountryForm()
-    #     self.assertInHTML('<input type="text" name="name" maxlength="100" required id="id_name">', str(form))
-    #     self.assertInHTML('<input type="text" name="capital" maxlength="100" required id="id_capital">', str(form))
-    #
-    #     self.assertIn("slug", form.fields)
-    #     self.assertIn("population", form.fields)
+    def test_empty_form(self):
+        form = CountryForm()
+        self.assertInHTML('<input type="text" name="name" maxlength="100" required id="id_name">', str(form))
+        self.assertInHTML('<input type="text" name="capital" maxlength="100" required id="id_capital">', str(form))
+
+        self.assertIn("slug", form.fields)
+        self.assertIn("population", form.fields)
 
     def test_create_valid_form(self):
         image = tempfile.NamedTemporaryFile(suffix=".jpg").name
@@ -59,3 +61,30 @@ class TestCountryForm(TestCase):
         })
         self.assertTrue(form.is_valid())
         # self.assertFalse(form.is_valid())
+
+
+class TestEditForm(TestCase):
+
+    # def SetUp(self):
+    #     image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+    #
+    #     self.first_country = Country.objects.create(name='Russia', population=144100000.0, description='test1',
+    #                                                          capital='Moscow', photos=image)
+
+    def test_field1_should_change(self):
+        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+        first_country = Country.objects.create(name='Russia', population=144100000.0, description='test1',
+                                               capital='Moscow')
+        response = self.client.post(
+            reverse('detail', kwargs={'pk': first_country.id}),
+            {'name': 'Russia',
+             'population': 144100000.0,
+             'description': 'test1',
+             'capital': 'Moscow',
+             }
+        )
+        self.assertEqual(response.status_code, 302)  # 405
+
+        # return reverse_lazy('detail', kwargs={'pk': country_id})
+        first_country.refresh_from_db()
+        self.assertEqual(first_country.name, 'Russian')

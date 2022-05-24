@@ -12,6 +12,7 @@ urlpatterns = [
     #path('detail/<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('edit/<int:pk>/', CountryEditView.as_view(), name='edit'),
+    path('delete/<int:pk>/', CountryDeleteView.as_view(), name='delete'),
 ]
 
 if settings.DEBUG:
