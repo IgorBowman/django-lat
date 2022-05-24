@@ -1,12 +1,12 @@
 {% extends "app/base.html" %}
 
-{% block title %}<title>{{ current_reg.id }}</title>{% endblock %}
+{% block title %}<title>Подтверждение удаления {{ country.name }}</title>{% endblock %}
 
 {% block content %}
 
     <p class="myitem">Регион: {{ country.reg.name }}</p>
         <div class="">
-            <h2 class="h1">{{ country.name }}</h2>
+            <h2 class="delete-confirm"> Вы уверены что хотимте удалить?? {{ country.name }}</h2>
                 {% if country.photos %}
                    <p><img width='500px' src="{{ country.photos.url }}"></p>
                 {% endif %}
@@ -25,12 +25,9 @@
                 {{ i }}
                 {{ i.country_name }}
             {% endfor %}
-
-            <form action="{% url 'edit' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Редактировать</button>
-            </form>
-            <form action="{% url 'delete' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Удалить</button>
-            </form>
-        </div>
+        <form method="post">
+        {% csrf_token %}
+        <input type="submit" value="Подтвердить">
+    </form>
+</div>
 {% endblock %}

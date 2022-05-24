@@ -3,7 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView
 from django.views.generic.detail import DetailView
-from django.views.generic.edit import CreateView, UpdateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.views.generic.base import View  ## delete
 
@@ -94,6 +94,17 @@ class CountryEditView(UpdateView):
     def get_success_url(self):
         country_id = self.kwargs['pk']
         return reverse_lazy('detail', kwargs={'pk': country_id})
+
+    def get_context_data(self, *args, **kwargs):
+        context = super().get_context_data(*args, **kwargs)
+        context['regions'] = Region.objects.all()
+        return context
+
+
+class CountryDeleteView(DeleteView):
+    # Удаление записи
+    model = Country
+    success_url = reverse_lazy('home')
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
