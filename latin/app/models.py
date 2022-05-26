@@ -80,7 +80,6 @@ class CountryShots(models.Model):
                                      on_delete=models.CASCADE)
     image = models.ImageField('Изображение', upload_to='country_shots/%Y/%m/%d/')
 
-    # Вылетает если заходить в Countries
     def __str__(self):
         return f"{self.country_name}_{self.id}"
 

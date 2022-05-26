@@ -1,15 +1,18 @@
 {% extends "app/base.html" %}
 
+
 {% block title %}
     <title>Создать</title>
 {% endblock title %}
 
 {% block content %}
     <form method="post">
-          <div class="form-group">
-              {% csrf_token %}
-            <label>{{ form.as_p }}</label>
-          </div>
+        {% csrf_token %}
+        <div class="form-error">{{ form.non_field_errors }}</div>
+        {% for f in form %}
+        <p><lable class="form-label" for="{{ f.id_for_label }}">{{f.label}}: </lable>{{ f }}</p>
+        <div class="form-error">{{ f.errors }}</div>
+        {% endfor %}
          <button type="submit" class="btn btn-primary">Добавить</button>
     </form>
 {% endblock content %}

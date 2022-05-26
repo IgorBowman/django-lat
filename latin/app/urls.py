@@ -8,11 +8,14 @@ urlpatterns = [
     path('app/<int:pk>/', CountryRegionView.as_view(), name='show_cat'),
     #path('add/', CountryCreateView.as_view(), name='create'), # does not work
     path('add/', add_and_save, name='create'), # does not work
-    path('', index, name='home'),
+    path('', CountrylistView.as_view(), name='home'),
     #path('detail/<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('edit/<int:pk>/', CountryEditView.as_view(), name='edit'),
     path('delete/<int:pk>/', CountryDeleteView.as_view(), name='delete'),
+    path('login/', LoginUser.as_view(), name='login'),
+    path('logout/', logout_user, name='logout'),
+    path('register/', RegisterUser.as_view(), name='register'),
 ]
 
 if settings.DEBUG:

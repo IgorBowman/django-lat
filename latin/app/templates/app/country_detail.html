@@ -1,9 +1,9 @@
 {% extends "app/base.html" %}
 
-{% block title %}<title>{{ current_reg.id }}</title>{% endblock %}
+
+{% block title %}<title>{{ country.name }}</title>{% endblock %}
 
 {% block content %}
-
     <p class="myitem">Регион: {{ country.reg.name }}</p>
         <div class="">
             <h2 class="h1">{{ country.name }}</h2>
@@ -15,22 +15,54 @@
             <p>Язык: {{ country.lang }}</p>
             <p>Религия: {{ country.religion }}</p>
             <p>Политическая система: {{ country.politic }}</p>
-            <p class="">Описание: {{ country.description }}</p>
+            <p class="">Описание: {{ country.description|linebreaks }}</p>
             <p class="outline-url"><a  href="{% url 'show_cat' country.reg.pk %}">Регион: {{ country.reg.name }}</a></p>
 
         <!--Как вывести фото?? -->
     <!--        {{ post.images }}-->
-            {% for i in country.images__country_name.set_all %}
-                <p><img src="{{ i.country.image }}"></p>
-                {{ i }}
-                {{ i.country_name }}
+            <p>Example: {{ country.images }}</p>
+                    {% for i in country.countryshot_set.all %}
+                        <a href="#" class="image"><img width='500px' src="{{ i.image.url }}"></a>
+                        {{ i }}
+                        {{ i.country_name }}
+                    {% endfor %}
+<!--fafsaf-->
+                {% for i in country.images__countryshot.country_name %}
+                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>
+                    {{ i }}
+                    {{ i.country_name }}
+
+                <!--     MY       Experiment-->
+                {% for i in country.images_set.all %}
+
+                <a href="#" class="image"> <img src="{{ i.image.url }}"></a>
+
+                {% endfor %}
+
+
+                {% for image in country.countryshot_set.all %}
+                    {{ image.country_name }}
+                <a href="#" class="image"> <img src="{{ image.image.url }}"></a>
+                {% endfor %}
+
+<!---->
+
             {% endfor %}
 
-            <form action="{% url 'edit' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Редактировать</button>
-            </form>
-            <form action="{% url 'delete' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Удалить</button>
-            </form>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'edit' country.pk %}" method="get">
+                         <button type="submit" class="button-edit">Редактировать</button>
+                </form>
+                <form action="{% url 'delete' country.pk %}" method="get">
+                         <button type="submit" class="button-edit">Удалить</button>
+                </form>
+            {% else %}
+                <p style="color:red">Зарегистрируйтесь или войдите если хотите отредактировать/удалить</p>
+{% endif %}
+
+
+
+
+
         </div>
 {% endblock %}
