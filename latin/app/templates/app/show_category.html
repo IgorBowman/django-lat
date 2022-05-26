@@ -1,16 +1,12 @@
 {% extends "app/base.html" %}
 
-{% block title %}
-    <title>{{ current_reg.id }}</title>
-{% endblock title %}
+
+{% block title %}<title>{{ current_reg.name }}</title>{% endblock title %}
+
 
 {% block content %}
 
         <div class="myitem">
- <!--   тут траблы с отображением         -->
-<!--            {% for region in regions %}-->
-<!--            <a href="">{{ region.name}}</a>-->
-<!--             {% endfor %}-->
          {% for post in posts %}
             <p class="">{{ post.reg.name }}</p>
         </div>

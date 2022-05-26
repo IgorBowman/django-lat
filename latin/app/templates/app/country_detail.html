@@ -1,9 +1,10 @@
 {% extends "app/base.html" %}
 
-{% block title %}<title>{{ current_reg.id }}</title>{% endblock %}
+
+
+{% block title %}<title>{{ country.name }}</title>{% endblock %}
 
 {% block content %}
-
     <p class="myitem">Регион: {{ country.reg.name }}</p>
         <div class="">
             <h2 class="h1">{{ country.name }}</h2>
@@ -26,11 +27,15 @@
                 {{ i.country_name }}
             {% endfor %}
 
-            <form action="{% url 'edit' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Редактировать</button>
-            </form>
-            <form action="{% url 'delete' country.pk %}" method="get">
-                     <button type="submit" class="button-edit">Удалить</button>
-            </form>
+            {% if request.user.is_authenticated %}
+                <form action="{% url 'edit' country.pk %}" method="get">
+                         <button type="submit" class="button-edit">Редактировать</button>
+                </form>
+                <form action="{% url 'delete' country.pk %}" method="get">
+                         <button type="submit" class="button-edit">Удалить</button>
+                </form>
+            {% else %}
+                <p style="color:red">Зарегистрируйтесь или войдите если хотите отредактировать/удалить</p>
+{% endif %}
         </div>
 {% endblock %}
