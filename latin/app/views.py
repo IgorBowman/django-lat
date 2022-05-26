@@ -1,27 +1,31 @@
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
-from django.views.generic.base import View  ## delete
+from django.views.generic.base import View
 
 from .models import *
 from .forms import CountryForm
 
 
-def index(request):
-    """Главная страница"""
-    posts = Country.objects.all()
-    regions = Region.objects.all()
+class CountrylistView(ListView):
+    model = Country
+    template_name = 'app/index.html'
+    context_object_name = 'posts'
 
-    context = {
-        'title': 'Главная страница',
-        'posts': posts,
-        'regions': regions,
-    }
-    return render(request, 'app/index.html', context)
+    def get_queryset(self):
+        return Country.objects.all()
+
+    def get_context_data(self, **kwargs):
+        context = super(CountrylistView, self).get_context_data(**kwargs)
+        context.update({
+            'posts': Country.objects.all(),
+            'regions': Region.objects.all()
+        })
+        return context
 
 
 class CountryRegionView(TemplateView):

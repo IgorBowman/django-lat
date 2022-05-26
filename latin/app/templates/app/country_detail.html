@@ -15,7 +15,7 @@
             <p>Язык: {{ country.lang }}</p>
             <p>Религия: {{ country.religion }}</p>
             <p>Политическая система: {{ country.politic }}</p>
-            <p class="">Описание: {{ country.description }}</p>
+            <p class="">Описание: {{ country.description|linebreaks }}</p>
             <p class="outline-url"><a  href="{% url 'show_cat' country.reg.pk %}">Регион: {{ country.reg.name }}</a></p>
 
         <!--Как вывести фото?? -->
