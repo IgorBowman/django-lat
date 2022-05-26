@@ -77,6 +77,13 @@ label {
 	border-right: 1px solid #ccc;
 	min-height: 100%;
 	padding-left: 0;
+
+	position: absolute;
+	top: 0;
+    left: 0;
+
+
+
 }
 .left-chapters ul {
 	width: 230px;
@@ -106,12 +113,6 @@ label {
 	margin: 0 20px 0 0;
 }
 
-.content {
-	padding: 40px 20px 20px 40px;
-	width: 100%;
-	box-sizing: border-box;
-}
-
 .button-edit {
     background-color: white;
     color: black;
@@ -126,4 +127,14 @@ label {
 
 .delete-confirm {
   color: #FF0000;
+}
+
+
+.content {
+	padding: 0px 0px 0px 300px;
+	width: 100%;
+	box-sizing: border-box;
+
+
+	position: relative;
 }

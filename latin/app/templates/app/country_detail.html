@@ -1,7 +1,6 @@
 {% extends "app/base.html" %}
 
 
-
 {% block title %}<title>{{ country.name }}</title>{% endblock %}
 
 {% block content %}
@@ -21,10 +20,33 @@
 
         <!--Как вывести фото?? -->
     <!--        {{ post.images }}-->
-            {% for i in country.images__country_name.set_all %}
-                <p><img src="{{ i.country.image }}"></p>
-                {{ i }}
-                {{ i.country_name }}
+            <p>Example: {{ country.images }}</p>
+                    {% for i in country.countryshot_set.all %}
+                        <a href="#" class="image"><img width='500px' src="{{ i.image.url }}"></a>
+                        {{ i }}
+                        {{ i.country_name }}
+                    {% endfor %}
+<!--fafsaf-->
+                {% for i in country.images__countryshot.country_name %}
+                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>
+                    {{ i }}
+                    {{ i.country_name }}
+
+                <!--     MY       Experiment-->
+                {% for i in country.images_set.all %}
+
+                <a href="#" class="image"> <img src="{{ i.image.url }}"></a>
+
+                {% endfor %}
+
+
+                {% for image in country.countryshot_set.all %}
+                    {{ image.country_name }}
+                <a href="#" class="image"> <img src="{{ image.image.url }}"></a>
+                {% endfor %}
+
+<!---->
+
             {% endfor %}
 
             {% if request.user.is_authenticated %}
@@ -37,5 +59,10 @@
             {% else %}
                 <p style="color:red">Зарегистрируйтесь или войдите если хотите отредактировать/удалить</p>
 {% endif %}
+
+
+
+
+
         </div>
 {% endblock %}

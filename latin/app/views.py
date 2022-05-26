@@ -14,6 +14,7 @@ from .forms import CountryForm, RegisterUserForm, LoginUserForm
 
 
 class CountrylistView(ListView):
+    paginate_by = 1
     model = Country
     template_name = 'app/index.html'
     context_object_name = 'posts'
@@ -33,6 +34,7 @@ class CountrylistView(ListView):
 class CountryRegionView(TemplateView):
     """Сортировка по региону"""
     template_name = 'app/show_category.html'
+    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
