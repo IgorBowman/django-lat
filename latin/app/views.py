@@ -13,6 +13,8 @@ from .models import *
 from .forms import CountryForm, RegisterUserForm, LoginUserForm
 
 
+
+
 class CountrylistView(ListView):
     paginate_by = 1
     model = Country
