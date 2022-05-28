@@ -22,7 +22,8 @@
       </ul>
   <!--   регистрация     -->
 			{% if request.user.is_authenticated %}
-			<li style="list-style-type: none">Вы вошли как: "{{ user.username }}" | <a href="{% url 'logout' %}">Выйти</a></li>
+			<li style="list-style-type: none">Вы вошли как: "{{ user.username }}" | <a href="{% url 'logout' %}">Выйти </a></li>
+            <li style="list-style-type: none">  |  <a href="{% url 'password_change' %}">Изменить пароль</a></li>
 			{% else %}
 			<li style="list-style-type: none"><a href="{% url 'register' %}">Регистрация</a> | <a href="{% url 'login' %}">Войти</a></li>
 			{% endif %}
