@@ -1,4 +1,5 @@
 from django.contrib.auth import login, logout
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
@@ -11,8 +12,6 @@ from django.views.generic.base import View
 
 from .models import *
 from .forms import CountryForm, RegisterUserForm, LoginUserForm
-
-
 
 
 class CountrylistView(ListView):
@@ -47,7 +46,7 @@ class CountryRegionView(TemplateView):
         return context
 
 
-# class CountryCreateView(CreateView):
+# class CountryCreateView(LoginRequiredMixin, CreateView):
 # """ Класс для создания новой записи"""
 #     form_class = CountryForm
 #     template_name = 'app/create.html'
@@ -97,7 +96,7 @@ class CountryDetailView(View):
         return render(request, "app/country_detail.html", {'country': country})
 
 
-class CountryEditView(UpdateView):
+class CountryEditView(LoginRequiredMixin, UpdateView):
     """ Класс редактирования записи"""
 
     model = Country
@@ -113,7 +112,7 @@ class CountryEditView(UpdateView):
         return context
 
 
-class CountryDeleteView(DeleteView):
+class CountryDeleteView(LoginRequiredMixin, DeleteView):
     """ Класс удаления записи"""
 
     model = Country
