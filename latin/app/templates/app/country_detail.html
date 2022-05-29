@@ -24,20 +24,21 @@
                     {% for i in country.countryshot_set.all %}
                         <a href="#" class="image"><img width='500px' src="{{ i.image.url }}"></a>
                         {{ i }}
-                        {{ i.country_name }}
+                        <a href="#" class="image"><img src="{{ i.image.url }}"></a>
                     {% endfor %}
 <!--fafsaf-->
-                {% for i in country.images__countryshot.country_name %}
-                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>
-                    {{ i }}
-                    {{ i.country_name }}
+<!--                {% for i in country.images__countryshot.country_name %}-->
+<!--                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>-->
+<!--                    {{ i }}-->
+<!--                    {{ i.country_name }}-->
 
                 <!--     MY       Experiment-->
-                {% for i in country.images_set.all %}
 
-                <a href="#" class="image"> <img src="{{ i.image.url }}"></a>
+<!--                {% for i in country.images_set.all %}-->
 
-                {% endfor %}
+<!--                <a href="#" class="image"> <img src="{{ i.image.url }}"></a>-->
+
+<!--                {% endfor %}-->
 
 
                 {% for image in country.countryshot_set.all %}
