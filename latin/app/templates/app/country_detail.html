@@ -20,19 +20,19 @@
 
         <!--Как вывести фото?? -->
     <!--        {{ post.images }}-->
-            <p>Example: {{ country.images }}</p>
+            <p>Should be photos: {{ country.images }}</p>
                     {% for i in country.countryshot_set.all %}
                         <a href="#" class="image"><img width='500px' src="{{ i.image.url }}"></a>
                         {{ i }}
                         <a href="#" class="image"><img src="{{ i.image.url }}"></a>
                     {% endfor %}
-<!--fafsaf-->
+<!--try-->
 <!--                {% for i in country.images__countryshot.country_name %}-->
 <!--                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>-->
 <!--                    {{ i }}-->
 <!--                    {{ i.country_name }}-->
 
-                <!--     MY       Experiment-->
+                <!--   one more try-->
 
 <!--                {% for i in country.images_set.all %}-->
 
@@ -45,11 +45,8 @@
                     {{ image.country_name }}
                 <a href="#" class="image"> <img src="{{ image.image.url }}"></a>
                 {% endfor %}
-
+{% endfor %}
 <!---->
-
-            {% endfor %}
-
             {% if request.user.is_authenticated %}
                 <form action="{% url 'edit' country.pk %}" method="get">
                          <button type="submit" class="button-edit">Редактировать</button>
@@ -58,7 +55,7 @@
                          <button type="submit" class="button-edit">Удалить</button>
                 </form>
             {% else %}
-                <p style="color:red">Зарегистрируйтесь или войдите если хотите отредактировать/удалить</p>
+                <p style="color:red">Зарегистрируйтесь или войдите, если хотите отредактировать/удалить</p>
 {% endif %}
            </div>
         </div>
