@@ -52,10 +52,8 @@ label {
   -webkit-text-fill-color: white;
 }
 
-
 #footer {
 	box-sizing: border-box;
-
 	background: #3F4137;
 	padding: 5px;
 	color: #aaa;
@@ -64,27 +62,23 @@ label {
 	text-align: left;
 	overflow: hidden;
 }
+
 #footer a {
 	text-decoration: underline;
 	color: #aaa;
 }
-#### bokovaya hujnada
 
 .left-chapters {
-
 	margin: 0;
 	background: #eee;
 	border-right: 1px solid #ccc;
 	min-height: 100%;
 	padding-left: 0;
-
 	position: absolute;
 	top: 0;
     left: 0;
-
-
-
 }
+
 .left-chapters ul {
 	width: 230px;
 	min-height: 50%;
@@ -129,12 +123,9 @@ label {
   color: #FF0000;
 }
 
-
 .content {
 	padding: 0px 0px 0px 300px;
 	width: 100%;
 	box-sizing: border-box;
-
-
 	position: relative;
 }

@@ -1,11 +1,9 @@
 from django.contrib.auth import login, logout
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.views import LoginView
-from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views.generic import TemplateView, ListView
-from django.views.generic.detail import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.views.generic.base import View
@@ -46,46 +44,35 @@ class CountryRegionView(TemplateView):
         return context
 
 
-# class CountryCreateView(LoginRequiredMixin, CreateView):
-# """ Класс для создания новой записи"""
-#     form_class = CountryForm
-#     template_name = 'app/create.html'
-#     success_url = reverse_lazy('home')
+class CountryCreateView(LoginRequiredMixin, CreateView):
+    """ Класс для создания новой записи"""
+    form_class = CountryForm
+    template_name = 'app/create.html'
+    success_url = reverse_lazy('home')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['regions'] = Region.objects.all()
+        return context
+
+# def add_and_save(request):
+#     """ Функция для создания новой записи"""
 #
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         context['regions'] = Region.objects.all()
-#         return context
-
-def add_and_save(request):
-    """ Функция для создания новой записи"""
-
-    if request.method == 'POST':
-        cntry = CountryForm(request.POST)
-        if cntry.is_valid():
-            cntry.save()
-            return HttpResponseRedirect(reverse('app:show_cat',
-                                                kwargs={'show_cat': cntry.cleaned_data['regions'].pk}))
-
-        else:
-            context = {'form': cntry}
-            return render(request, 'app/create.html', context)
-
-    else:
-        cntry = CountryForm()
-        context = {'form': cntry}
-        return render(request, 'app/create.html', context)
-
-
-# class CountryDetailView(DetailView):
-# """ Не полностью рабочий класс для просмотра записи"""
-#     model = Country
-
+#     if request.method == 'POST':
+#         cntry = CountryForm(request.POST)
+#         if cntry.is_valid():
+#             cntry.save()
+#             return HttpResponseRedirect(reverse('app:show_cat',
+#                                                 kwargs={'show_cat': cntry.cleaned_data['regions'].pk}))
 #
-#     def get_context_data(self, **kwargs):
-#         context = super().get_context_data(**kwargs)
-#         #context['regions'] = Region.objects.all()  # 'reg'
-#         return context
+#         else:
+#             context = {'form': cntry}
+#             return render(request, 'app/create.html', context)
+#
+#     else:
+#         cntry = CountryForm()
+#         context = {'form': cntry}
+#         return render(request, 'app/create.html', context)
 
 
 class CountryDetailView(View):

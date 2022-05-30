@@ -4,7 +4,7 @@ from django.urls import reverse
 
 class Country(models.Model):
     name = models.CharField(max_length=100, verbose_name='Название')
-    slug = models.SlugField(max_length=255, db_index=True, verbose_name="URL",
+    slug = models.SlugField(max_length=150, db_index=True, verbose_name='URL',
                             null=True, blank=True)
     population = models.FloatField(verbose_name='Население')
     description = models.TextField(verbose_name='Описание')
@@ -12,13 +12,17 @@ class Country(models.Model):
     photos = models.ImageField(upload_to="photos/%Y/%m/%d/", verbose_name='Фото')
     lang = models.ForeignKey('Language', on_delete=models.PROTECT, null=True,
                              verbose_name='Язык', related_name='country_language')
-    religion = models.ForeignKey('Religion', on_delete=models.PROTECT, null=True,
-                                 verbose_name='Религия', related_name='country_religion')
+    religion = models.ForeignKey('Religion', on_delete=models.PROTECT,
+                                 null=True, verbose_name='Религия',
+                                 related_name='country_religion')
     politic = models.ForeignKey('Politition', on_delete=models.PROTECT, null=True,
-                                verbose_name='Политическая система')
-    reg = models.ForeignKey('Region', on_delete=models.PROTECT, null=True, verbose_name='Регион')
-    images = models.ForeignKey('CountryShots', on_delete=models.CASCADE, verbose_name='Изображения',
-                               null=True, blank=True)
+                                verbose_name='Политическая система',
+                                related_name='politic')
+    reg = models.ForeignKey('Region', on_delete=models.PROTECT, null=True,
+                            verbose_name='Регион', related_name='region')
+    images = models.ForeignKey('CountryShots', on_delete=models.SET_NULL,
+                               verbose_name='Изображения', null=True, blank=True,
+                               related_name='images')
 
     def correct_view_population(self):
         if len(str(self.population)) > 4:
@@ -42,8 +46,8 @@ class Country(models.Model):
 
 class Region(models.Model):
     name = models.CharField(max_length=100, db_index=True, verbose_name='Регион')
-    slug = models.SlugField(max_length=255, unique=True, db_index=True, verbose_name="URL",
-                            null=True, blank=True)
+    slug = models.SlugField(max_length=255, unique=True, db_index=True,
+                            verbose_name='URL', null=True, blank=True)
 
     def __str__(self):
         return self.name
@@ -55,7 +59,8 @@ class Region(models.Model):
 
 
 class Politition(models.Model):
-    name = models.CharField(max_length=100, db_index=True, verbose_name='Политическая система')
+    name = models.CharField(max_length=100, db_index=True,
+                            verbose_name='Политическая система')
 
     def __str__(self):
         return self.name
