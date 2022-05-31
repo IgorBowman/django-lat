@@ -82,7 +82,7 @@ class Language(models.Model):
 
 class CountryShots(models.Model):
     country_name = models.ForeignKey(Country, verbose_name='Страна',
-                                     on_delete=models.CASCADE)
+                                     on_delete=models.CASCADE, related_name='country_name')
     image = models.ImageField('Изображение', upload_to='country_shots/%Y/%m/%d/')
 
     def __str__(self):

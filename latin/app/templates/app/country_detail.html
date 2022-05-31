@@ -15,38 +15,13 @@
             <p>Язык: {{ country.lang }}</p>
             <p>Религия: {{ country.religion }}</p>
             <p>Политическая система: {{ country.politic }}</p>
-            <p class="">Описание: {{ country.description|linebreaks }}</p>
+            <p class="">Описание: {{ country.description|linebreaks|truncatewords:50 }}</p>
             <p class="outline-url"><a  href="{% url 'show_cat' country.reg.pk %}">Регион: {{ country.reg.name }}</a></p>
 
-        <!--Как вывести фото?? -->
-    <!--        {{ post.images }}-->
-            <p>Should be photos: {{ country.images }}</p>
-                    {% for i in country.countryshot_set.all %}
-                        <a href="#" class="image"><img width='500px' src="{{ i.image.url }}"></a>
-                        {{ i }}
-                        <a href="#" class="image"><img src="{{ i.image.url }}"></a>
-                    {% endfor %}
-<!--try-->
-<!--                {% for i in country.images__countryshot.country_name %}-->
-<!--                    <a href="#" class="image"><img src="{{ i.image.url }}"></a>-->
-<!--                    {{ i }}-->
-<!--                    {{ i.country_name }}-->
-
-                <!--   one more try-->
-
-<!--                {% for i in country.images_set.all %}-->
-
-<!--                <a href="#" class="image"> <img src="{{ i.image.url }}"></a>-->
-
-<!--                {% endfor %}-->
-
-
-                {% for image in country.countryshot_set.all %}
-                    {{ image.country_name }}
-                <a href="#" class="image"> <img src="{{ image.image.url }}"></a>
+                {% for img in country.country_name.all %}
+                        <p class="test-box-photos"><img width='500px' src="{{ img.image.url }}"></p>
                 {% endfor %}
-{% endfor %}
-<!---->
+
             {% if request.user.is_authenticated %}
                 <form action="{% url 'edit' country.pk %}" method="get">
                          <button type="submit" class="button-edit">Редактировать</button>
@@ -56,7 +31,6 @@
                 </form>
             {% else %}
                 <p style="color:red">Зарегистрируйтесь или войдите, если хотите отредактировать/удалить</p>
-{% endif %}
+            {% endif %}
            </div>
-        </div>
 {% endblock %}
