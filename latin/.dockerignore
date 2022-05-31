@@ -1,0 +1,6 @@
+*/venv
+.gitignore
+commands.txt
+.coverage
+.env
+*/htmlcov
