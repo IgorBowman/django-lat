@@ -16,9 +16,9 @@
 {% block mainmenu %}
 
 <table>
-    <td valign="top" class="left-chapters">
+    <td valign="top" class="">
         <ul id="leftchapters">
-        <div class="left-chapters">
+        <div class="SECRET_KEY">
             {% for region in regions %}
             <li style="list-style-type: none"><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></li>
             {% endfor %}
