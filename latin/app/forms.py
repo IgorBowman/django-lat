@@ -13,8 +13,9 @@ class CountryForm(ModelForm):
 
     class Meta:
         model = Country
-        fields = ("name", "slug", "population", "description", "capital",
-                  "photos", "lang", "religion", "politic", "reg",)
+        exclude = ('images', )
+        # fields = ("name", "slug", "population", "description", "capital",
+        #           "lang", "religion", "politic", "reg",)
         labels = {"name": 'Название страны'}
 
 

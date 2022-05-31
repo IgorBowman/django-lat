@@ -1,5 +1,5 @@
 {% load static %}
-{% load app_tags %}
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -20,7 +20,9 @@
         <ul id="leftchapters">
         <div class="SECRET_KEY">
             {% for region in regions %}
-            <li style="list-style-type: none"><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></li>
+                {% if region.region.count > 0 %}
+                    <li style="list-style-type: none"><a href="{% url 'show_cat' region.pk %}">{{ region.name }}</a></li>
+                {% endif %}
             {% endfor %}
         </div>
 </ul>
@@ -32,27 +34,12 @@
 {% block content %}
 {% endblock content %}
         </td></tr></nav>
-
 </table>
-<!--pagination DOESNOT WORK??-->
-<!--    {% for country in page_obj %}-->
-        {% if is_paginated %}
-            <div class="pagination">
-                <span class="page-links">
-                    {% if page_obj.has_previous %}
-                        <a href="/?page={{ page_obj.previous_page_number }}">previous</a>
-                    {% endif %}
-                    <span class="page-current">
-                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-                    </span>
 
-                    {% if page_obj.has_next %}
-                        <a href="/?page={{ page_obj.next_page_number }}">next</a>
-                    {% endif %}
-                </span>
-            </div>
-        {% endif %}
-<!--    {% endfor %}-->
+<!--pagination-->
+<div class="grid-img-right mt-4 text-right bg bg1">
+{% include 'app/pagination.html' %}
+</div>
 
 <!--footer-->
 <tr><td valign=top>
@@ -60,6 +47,7 @@
 		<p>&copy; 2022 Частичное или полное копирование информации с данного сайта для распространения на других ресурсах, в том числе и бумажных, строго запрещено.</p>
 	</div>
 </td></tr>
+
     <!-- Separate Popper and Bootstrap JS -->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>

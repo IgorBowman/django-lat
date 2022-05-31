@@ -3,9 +3,9 @@
 
 {% block title%}<title>Главная страница</title>{% endblock title %}
 {% block content %}
-    {% for post in posts %}
+    {% for post in page_obj %}
 
-        <div class="">
+        <div style="margin-top:-100px" class="">
             <h2 class="h1"><a href="{{ post.id }}">{{ post.name }}</a></h2>
 
                 {% if post.photos %}
@@ -17,7 +17,7 @@
             <p>Язык: {{ post.lang }}</p>
             <p>Религия: {{ post.religion }}</p>
             <p>Политическая система: {{ post.politic }}</p>
-            <p class="">Описание: {{ post.description }}</p>
+            <p class="">Описание: {{ post.description|linebreaks|truncatewords:50 }}</p>
             <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
         </div>
     {% endfor %}

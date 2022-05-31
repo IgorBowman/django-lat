@@ -32,8 +32,8 @@ class CountrylistView(ListView):
 
 class CountryRegionView(TemplateView):
     """Сортировка по региону"""
+
     template_name = 'app/show_category.html'
-    paginate_by = 1
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -45,7 +45,6 @@ class CountryRegionView(TemplateView):
 
 
 class CountryCreateView(LoginRequiredMixin, CreateView):
-    """ Класс для создания новой записи"""
     form_class = CountryForm
     template_name = 'app/create.html'
     success_url = reverse_lazy('home')
@@ -54,6 +53,7 @@ class CountryCreateView(LoginRequiredMixin, CreateView):
         context = super().get_context_data(**kwargs)
         context['regions'] = Region.objects.all()
         return context
+
 
 # def add_and_save(request):
 #     """ Функция для создания новой записи"""
@@ -80,7 +80,10 @@ class CountryDetailView(View):
 
     def get(self, request, pk):
         country = Country.objects.get(id=pk)
-        return render(request, "app/country_detail.html", {'country': country})
+        photos = CountryShots.objects.all().prefetch_related('countryshots_set')
+        context = {'country': country,
+                   'photos': photos}
+        return render(request, "app/country_detail.html", context)
 
 
 class CountryEditView(LoginRequiredMixin, UpdateView):
@@ -100,8 +103,6 @@ class CountryEditView(LoginRequiredMixin, UpdateView):
 
 
 class CountryDeleteView(LoginRequiredMixin, DeleteView):
-    """ Класс удаления записи"""
-
     model = Country
     success_url = reverse_lazy('home')
 

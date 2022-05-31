@@ -3,7 +3,7 @@
 
 {% block title %}<title>{{ current_reg.name }}</title>{% endblock title %}
 {% block content %}
-        <div class="myitem">
+        <div style="margin-top:-100px" class="myitem">
          {% for post in posts %}
             <p class="">{{ post.reg.name }}</p>
         </div>
@@ -21,8 +21,6 @@
             <p>Описание: {{ post.description|linebreaks|truncatewords:50 }}</p>
 
                     <p class="outline-url"><a href="{% url 'show_cat' post.reg.pk %}">{{ post.reg.name }}</a></p>
-
-
         </div>
         {% endfor %}
 
