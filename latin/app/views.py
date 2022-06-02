@@ -83,7 +83,7 @@ class CountryDetailView(View):
         photos = CountryShots.objects.all().prefetch_related('countryshots_set')
         context = {'country': country,
                    'photos': photos}
-        return render(request, "app/country_detail.html", context)
+        return render(request, 'app/country_detail.html', context)
 
 
 class CountryEditView(LoginRequiredMixin, UpdateView):

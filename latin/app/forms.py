@@ -22,8 +22,8 @@ class CountryForm(ModelForm):
 class RegisterUserForm(ModelForm):
     username = forms.CharField(widget=forms.TextInput(attrs={'class': 'form-input'}))
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-input'}))
-    password1 = forms.CharField(label="Пароль", widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label="Подтвердите пароль", widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+    password2 = forms.CharField(label='Подтвердите пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
     class Meta:
         model = User
