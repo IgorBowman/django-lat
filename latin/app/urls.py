@@ -2,14 +2,17 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
-from .views import *
+from .views import CountryRegionView, CountryCreateView, CountrylistView, CountryDetailView, CountryEditView, \
+    CountryDeleteView, LoginUser, logout_user, RegisterUser
 
 urlpatterns = [
     path('app/<int:pk>/', CountryRegionView.as_view(), name='show_cat'),
     path('add/', CountryCreateView.as_view(), name='create'), # does not work
     # path('add/', add_and_save, name='create'), # does not work
-    path('', CountrylistView.as_view(), name='home'),
+    path('', cache_page(60)(CountrylistView.as_view()), name='home'),
+    #path('', CountrylistView.as_view(), name='home'),
     path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('edit/<int:pk>/', CountryEditView.as_view(), name='edit'),
     path('delete/<int:pk>/', CountryDeleteView.as_view(), name='delete'),
