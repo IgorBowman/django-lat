@@ -4,7 +4,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from .views import CountryRegionView, CountryCreateView, CountrylistView, CountryDetailView, CountryEditView, \
+from app.views import CountryRegionView, CountryCreateView, CountrylistView, CountryDetailView, CountryEditView, \
     CountryDeleteView, LoginUser, logout_user, RegisterUser
 
 urlpatterns = [

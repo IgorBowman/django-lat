@@ -1,13 +1,9 @@
-from unittest import mock
-from unittest.mock import patch
-
-from django.contrib.auth.models import User
-from django.forms import CharField
+from django.test import Client
 from django.test import TestCase
 import tempfile
 from django.urls import reverse
 from app.models import Country
-from app.forms import CountryForm, RegisterUserForm
+from app.forms import CountryForm
 from captcha.models import CaptchaStore
 
 
@@ -35,7 +31,7 @@ class TestCountryForm(TestCase):
             'religion': 'christians',
             'politic': 'authorian',
             'reg': 'East Europe',
-            'captcha': '28if',
+            'captcha': captcha,
             # 'captcha_0': captcha.hashkey,
             # 'captcha_1': captcha.response
         })
@@ -70,6 +66,34 @@ class TestEditForm(TestCase):
         first_country.refresh_from_db()
         self.assertEqual(first_country.name, 'Russian')
 
-#
-# class UserTestCase(TestCase):
-#     pass
+
+class BaseUserTests(TestCase):
+
+    def setUp(self):
+        self.guest_client = Client()
+        self.authorized_client = Client()
+        self.register_url = reverse('register')
+        self.login_url = reverse('login')
+        self.user = {
+            'email': 'testemail@gmail.com',
+            'username': 'username',
+            'password': 'password',
+            'password2': 'password',
+            'name': 'fullname'
+        }
+
+    def test_can_view_page_correctly(self):
+        response = self.guest_client.get(self.register_url)
+        self.assertEqual(response.status_code, 200)
+
+    def test_get_add_page_client_user(self):
+        response = self.guest_client.get('add/')
+        self.assertEqual(response.status_code, 404)
+
+    def test_can_register_user(self):
+        response = self.guest_client.post(self.register_url, self.user, format='text/html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_access_page(self):
+        response = self.guest_client.get(self.login_url)
+        self.assertEqual(response.status_code, 200)

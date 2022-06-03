@@ -8,10 +8,10 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.views.generic.base import View
 
-from .models import Country, Region, CountryShots
-from .forms import RegisterUserForm, LoginUserForm
+from app.models import Country, Region, CountryShots
+from app.forms import RegisterUserForm, LoginUserForm
 
-from .utils import MixinData
+from app.utils import MixinData
 
 
 class CountrylistView(MixinData, ListView):

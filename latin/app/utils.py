@@ -1,5 +1,5 @@
-from .models import Country, Region
-from .forms import CountryForm
+from app.models import Country, Region
+from app.forms import CountryForm
 
 
 class MixinData:
