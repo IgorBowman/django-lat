@@ -1,9 +1,10 @@
-from django.contrib.auth.models import User
+from django.test import Client
 from django.test import TestCase
 import tempfile
 from django.urls import reverse
 from app.models import Country
 from app.forms import CountryForm
+from captcha.models import CaptchaStore
 
 
 class TestCountryForm(TestCase):
@@ -17,22 +18,27 @@ class TestCountryForm(TestCase):
         self.assertIn('population', form.fields)
 
     def test_create_valid_form(self):
-        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+        captcha = CaptchaStore.objects.get(hashkey=CaptchaStore.generate_key())
 
+        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
         form = CountryForm(data={
             'name': 'Russia',
             'slug': 'russia',
-            'population': 1441000000.0,
+            'population': 1441000000,
             'capital': 'Moscow',
             'photos': image,
             'lang': 'russian',
             'religion': 'christians',
             'politic': 'authorian',
             'reg': 'East Europe',
-
+            'captcha': captcha,
+            # 'captcha_0': captcha.hashkey,
+            # 'captcha_1': captcha.response
         })
+
+        captcha_count = CaptchaStore.objects.count()
+        self.failUnlessEqual(captcha_count, 1)
         self.assertTrue(form.is_valid())
-        # self.assertFalse(form.is_valid())
 
 
 class TestEditForm(TestCase):
@@ -61,21 +67,33 @@ class TestEditForm(TestCase):
         self.assertEqual(first_country.name, 'Russian')
 
 
-class UserTestCase(TestCase):
+class BaseUserTests(TestCase):
 
     def setUp(self):
-        test_user1 = User.objects.create_user(username='testuser1', password='12345')
-        test_user1.save()
-        test_user2 = User.objects.create_user(username='testuser2', password='12345')
-        test_user2.save()
+        self.guest_client = Client()
+        self.authorized_client = Client()
+        self.register_url = reverse('register')
+        self.login_url = reverse('login')
+        self.user = {
+            'email': 'testemail@gmail.com',
+            'username': 'username',
+            'password': 'password',
+            'password2': 'password',
+            'name': 'fullname'
+        }
 
-    def test_redirect_if_not_logged_in(self):
-        resp = self.client.get(reverse('login'))
-        self.assertRedirects(resp, 'login')
+    def test_can_view_page_correctly(self):
+        response = self.guest_client.get(self.register_url)
+        self.assertEqual(response.status_code, 200)
 
-    def test_logged_in_uses_incorrect_template(self):
-        login = self.client.login(username='testuser1', password='12345')
-        resp = self.client.get(reverse('index'))
+    def test_get_add_page_client_user(self):
+        response = self.guest_client.get('add/')
+        self.assertEqual(response.status_code, 404)
 
-        self.assertEqual(str(resp.context['user']), 'testuser1')
-        self.assertEqual(resp.status_code, 302)
+    def test_can_register_user(self):
+        response = self.guest_client.post(self.register_url, self.user, format='text/html')
+        self.assertEqual(response.status_code, 200)
+
+    def test_can_access_page(self):
+        response = self.guest_client.get(self.login_url)
+        self.assertEqual(response.status_code, 200)

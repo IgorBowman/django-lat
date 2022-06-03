@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.forms import ModelForm
 from django import forms
 
-from .models import Country
+from app.models import Country
 from captcha.fields import CaptchaField
 
 
@@ -13,9 +13,7 @@ class CountryForm(ModelForm):
 
     class Meta:
         model = Country
-        exclude = ('images', )
-        # fields = ("name", "slug", "population", "description", "capital",
-        #           "lang", "religion", "politic", "reg",)
+        exclude = ('images',)
         labels = {"name": 'Название страны'}
 
 

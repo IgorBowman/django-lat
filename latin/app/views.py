@@ -8,13 +8,14 @@ from django.views.generic.edit import CreateView, UpdateView, DeleteView
 
 from django.views.generic.base import View
 
-from .models import *
-from .forms import CountryForm, RegisterUserForm, LoginUserForm
+from app.models import Country, Region, CountryShots
+from app.forms import RegisterUserForm, LoginUserForm
+
+from app.utils import MixinData
 
 
-class CountrylistView(ListView):
+class CountrylistView(MixinData, ListView):
     paginate_by = 1
-    model = Country
     template_name = 'app/index.html'
     context_object_name = 'posts'
 
@@ -22,11 +23,10 @@ class CountrylistView(ListView):
         return Country.objects.all()
 
     def get_context_data(self, **kwargs):
-        context = super(CountrylistView, self).get_context_data(**kwargs)
-        context.update({
-            'posts': Country.objects.all(),
-            'regions': Region.objects.all()
-        })
+        context = super().get_context_data(**kwargs)
+        context['posts'] = Country.objects.all()
+        context['regions'] = Region.objects.all()
+
         return context
 
 
@@ -44,35 +44,9 @@ class CountryRegionView(TemplateView):
         return context
 
 
-class CountryCreateView(LoginRequiredMixin, CreateView):
-    form_class = CountryForm
+class CountryCreateView(MixinData, LoginRequiredMixin, CreateView):
     template_name = 'app/create.html'
     success_url = reverse_lazy('home')
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['regions'] = Region.objects.all()
-        return context
-
-
-# def add_and_save(request):
-#     """ Функция для создания новой записи"""
-#
-#     if request.method == 'POST':
-#         cntry = CountryForm(request.POST)
-#         if cntry.is_valid():
-#             cntry.save()
-#             return HttpResponseRedirect(reverse('app:show_cat',
-#                                                 kwargs={'show_cat': cntry.cleaned_data['regions'].pk}))
-#
-#         else:
-#             context = {'form': cntry}
-#             return render(request, 'app/create.html', context)
-#
-#     else:
-#         cntry = CountryForm()
-#         context = {'form': cntry}
-#         return render(request, 'app/create.html', context)
 
 
 class CountryDetailView(View):
@@ -86,30 +60,16 @@ class CountryDetailView(View):
         return render(request, 'app/country_detail.html', context)
 
 
-class CountryEditView(LoginRequiredMixin, UpdateView):
+class CountryEditView(MixinData, LoginRequiredMixin, UpdateView):
     """ Класс редактирования записи"""
-
-    model = Country
-    form_class = CountryForm
 
     def get_success_url(self):
         country_id = self.kwargs['pk']
         return reverse_lazy('detail', kwargs={'pk': country_id})
 
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['regions'] = Region.objects.all()
-        return context
 
-
-class CountryDeleteView(LoginRequiredMixin, DeleteView):
-    model = Country
+class CountryDeleteView(MixinData, LoginRequiredMixin, DeleteView):
     success_url = reverse_lazy('home')
-
-    def get_context_data(self, *args, **kwargs):
-        context = super().get_context_data(*args, **kwargs)
-        context['regions'] = Region.objects.all()
-        return context
 
 
 class RegisterUser(CreateView):

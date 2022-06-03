@@ -42,6 +42,7 @@ class Country(models.Model):
 
     class Meta:
         verbose_name_plural = 'Countries'
+        ordering = ['name']
 
 
 class Region(models.Model):
@@ -56,6 +57,9 @@ class Region(models.Model):
     #     return reverse('show_cat', kwargs={'region_slug': self.slug})
     def get_absolute_url(self):
         return reverse('show_cat', kwargs={'pk': self.pk})
+
+    class Meta:
+        ordering = ['name']
 
 
 class Politition(models.Model):
@@ -90,4 +94,3 @@ class CountryShots(models.Model):
 
     class Meta:
         verbose_name_plural = 'Country shots'
-

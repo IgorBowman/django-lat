@@ -1,2 +1,4 @@
 /latin/.env
 /venv/
+/latin/htmlcov/
+/latin/.coverage
