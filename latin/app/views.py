@@ -49,26 +49,6 @@ class CountryCreateView(MixinData, LoginRequiredMixin, CreateView):
     success_url = reverse_lazy('home')
 
 
-# def add_and_save(request):
-#     """ Функция для создания новой записи"""
-#
-#     if request.method == 'POST':
-#         cntry = CountryForm(request.POST)
-#         if cntry.is_valid():
-#             cntry.save()
-#             return HttpResponseRedirect(reverse('app:show_cat',
-#                                                 kwargs={'show_cat': cntry.cleaned_data['regions'].pk}))
-#
-#         else:
-#             context = {'form': cntry}
-#             return render(request, 'app/create.html', context)
-#
-#     else:
-#         cntry = CountryForm()
-#         context = {'form': cntry}
-#         return render(request, 'app/create.html', context)
-
-
 class CountryDetailView(View):
     """ Класс для просмотра записи"""
 

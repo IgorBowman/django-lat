@@ -1,9 +1,14 @@
+from unittest import mock
+from unittest.mock import patch
+
 from django.contrib.auth.models import User
+from django.forms import CharField
 from django.test import TestCase
 import tempfile
 from django.urls import reverse
 from app.models import Country
-from app.forms import CountryForm
+from app.forms import CountryForm, RegisterUserForm
+from captcha.models import CaptchaStore
 
 
 class TestCountryForm(TestCase):
@@ -17,22 +22,27 @@ class TestCountryForm(TestCase):
         self.assertIn('population', form.fields)
 
     def test_create_valid_form(self):
-        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
+        captcha = CaptchaStore.objects.get(hashkey=CaptchaStore.generate_key())
 
+        image = tempfile.NamedTemporaryFile(suffix=".jpg").name
         form = CountryForm(data={
             'name': 'Russia',
             'slug': 'russia',
-            'population': 1441000000.0,
+            'population': 1441000000,
             'capital': 'Moscow',
             'photos': image,
             'lang': 'russian',
             'religion': 'christians',
             'politic': 'authorian',
             'reg': 'East Europe',
-
+            'captcha': '28if',
+            # 'captcha_0': captcha.hashkey,
+            # 'captcha_1': captcha.response
         })
+
+        captcha_count = CaptchaStore.objects.count()
+        self.failUnlessEqual(captcha_count, 1)
         self.assertTrue(form.is_valid())
-        # self.assertFalse(form.is_valid())
 
 
 class TestEditForm(TestCase):
@@ -60,22 +70,6 @@ class TestEditForm(TestCase):
         first_country.refresh_from_db()
         self.assertEqual(first_country.name, 'Russian')
 
-
-class UserTestCase(TestCase):
-
-    def setUp(self):
-        test_user1 = User.objects.create_user(username='testuser1', password='12345')
-        test_user1.save()
-        test_user2 = User.objects.create_user(username='testuser2', password='12345')
-        test_user2.save()
-
-    def test_redirect_if_not_logged_in(self):
-        resp = self.client.get(reverse('login'))
-        self.assertRedirects(resp, 'login')
-
-    def test_logged_in_uses_incorrect_template(self):
-        login = self.client.login(username='testuser1', password='12345')
-        resp = self.client.get(reverse('index'))
-
-        self.assertEqual(str(resp.context['user']), 'testuser1')
-        self.assertEqual(resp.status_code, 302)
+#
+# class UserTestCase(TestCase):
+#     pass

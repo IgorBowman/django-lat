@@ -9,10 +9,8 @@ from .views import CountryRegionView, CountryCreateView, CountrylistView, Countr
 
 urlpatterns = [
     path('app/<int:pk>/', CountryRegionView.as_view(), name='show_cat'),
-    path('add/', CountryCreateView.as_view(), name='create'), # does not work
-    # path('add/', add_and_save, name='create'), # does not work
+    path('add/', CountryCreateView.as_view(), name='create'),
     path('', cache_page(60)(CountrylistView.as_view()), name='home'),
-    #path('', CountrylistView.as_view(), name='home'),
     path('<int:pk>/', CountryDetailView.as_view(), name='detail'),
     path('edit/<int:pk>/', CountryEditView.as_view(), name='edit'),
     path('delete/<int:pk>/', CountryDeleteView.as_view(), name='delete'),
