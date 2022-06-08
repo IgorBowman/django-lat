@@ -14,9 +14,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = env('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = env('ALLOWED_HOSTS')
 
 # Application definition
 
@@ -75,7 +75,7 @@ DATABASES = {
         'USER': env('DATABASES_USER'),
         'PASSWORD': env('DATABASES_PASSWORD'),
         'HOST': 'localhost',
-        'PORT': '5432',
+        'PORT': env('PORT'),
     }
 }
 
@@ -123,9 +123,7 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-INTERNAL_IPS = [
-    "127.0.0.1",
-]
+INTERNAL_IPS = env('INTERNAL_IPS')
 
 CACHES = {
     'default': {
