@@ -16,7 +16,7 @@ SECRET_KEY = env('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env('DEBUG')
 
-ALLOWED_HOSTS = env('ALLOWED_HOSTS')
+ALLOWED_HOSTS = env('ALLOWED_HOSTS', "127.0.0.1").split(" ")
 
 # Application definition
 
@@ -75,7 +75,7 @@ DATABASES = {
         'USER': env('DATABASES_USER'),
         'PASSWORD': env('DATABASES_PASSWORD'),
         'HOST': 'localhost',
-        'PORT': env('PORT'),
+        'PORT': env('PORT', '5432'),
     }
 }
 
