@@ -5,6 +5,7 @@ from django.contrib.auth.views import PasswordChangeView, \
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
+from app.feeds import LatestPostsFeed
 from app.views import CountryRegionView, CountryCreateView, CountrylistView, \
     CountryDetailView, CountryEditView, \
     CountryDeleteView, LoginUser, logout_user, RegisterUser
@@ -19,6 +20,7 @@ urlpatterns = [
     path('login/', LoginUser.as_view(), name='login'),
     path('logout/', logout_user, name='logout'),
     path('register/', RegisterUser.as_view(), name='register'),
+    path('feed', LatestPostsFeed(), name='post_feed'),
 
     path('accounts/password_change/', PasswordChangeView.as_view(
         template_name='registration/change_password.html'),
