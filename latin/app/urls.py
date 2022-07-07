@@ -1,10 +1,12 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView, PasswordResetView
+from django.contrib.auth.views import PasswordChangeView, \
+    PasswordChangeDoneView, PasswordResetView
 from django.urls import path
 from django.views.decorators.cache import cache_page
 
-from app.views import CountryRegionView, CountryCreateView, CountrylistView, CountryDetailView, CountryEditView, \
+from app.views import CountryRegionView, CountryCreateView, CountrylistView, \
+    CountryDetailView, CountryEditView, \
     CountryDeleteView, LoginUser, logout_user, RegisterUser
 
 urlpatterns = [
@@ -29,7 +31,6 @@ urlpatterns = [
         subject_template_name='registration/reset_subject.txt',
         email_template_name='registration/reset_email.txt'),
          name='password_reset'),
-
 ]
 
 if settings.DEBUG:
