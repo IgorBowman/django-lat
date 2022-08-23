@@ -27,3 +27,7 @@ pip install -r requirements.txt
 ```
 python manage.py runserver
 ```
+## Запуск docker
+```
+docker-compose up
+```
